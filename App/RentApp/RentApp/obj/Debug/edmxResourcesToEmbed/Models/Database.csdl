@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RentCarsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Brands">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CarModels" Relationship="Self.FK_CarModels_Brands" FromRole="Brands" ToRole="CarModels" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_Brands" FromRole="Brands" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="CarModels">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandsID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Brands" Relationship="Self.FK_CarModels_Brands" FromRole="CarModels" ToRole="Brands" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarModels" FromRole="CarModels" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="Cars">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarModelsID" Type="Int32" />
+    <Property Name="BrandsID" Type="Int32" />
+    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="FuelTypeID" Type="Int32" />
+    <Property Name="TransmissionID" Type="Int32" />
+    <Property Name="HorsePower" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Brands" Relationship="Self.FK_Cars_Brands" FromRole="Cars" ToRole="Brands" />
+    <NavigationProperty Name="CarModels" Relationship="Self.FK_Cars_CarModels" FromRole="Cars" ToRole="CarModels" />
+    <NavigationProperty Name="FuelType" Relationship="Self.FK_Cars_FuelType" FromRole="Cars" ToRole="FuelType" />
+    <NavigationProperty Name="Transmission1" Relationship="Self.FK_Cars_Transmission" FromRole="Cars" ToRole="Transmission1" />
+    <NavigationProperty Name="Rents" Relationship="RentCarsModel.FK_Rents_Cars" FromRole="Cars" ToRole="Rents" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DrivingLicense" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Rents" Relationship="RentCarsModel.FK_Rents_Customers" FromRole="Customers" ToRole="Rents" />
+  </EntityType>
+  <EntityType Name="FuelType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_FuelType" FromRole="FuelType" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="Transmission1">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_Transmission" FromRole="Transmission1" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Rents" Relationship="RentCarsModel.FK_Rents_Users" FromRole="Users" ToRole="Rents" />
+  </EntityType>
+  <Association Name="FK_CarModels_Brands">
+    <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
+    <End Role="CarModels" Type="Self.CarModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brands">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CarModels">
+        <PropertyRef Name="BrandsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_Brands">
+    <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brands">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="BrandsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_CarModels">
+    <End Role="CarModels" Type="Self.CarModels" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarModels">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="CarModelsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_FuelType">
+    <End Role="FuelType" Type="Self.FuelType" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuelType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="FuelTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_Transmission">
+    <End Role="Transmission1" Type="Self.Transmission1" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transmission1">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="TransmissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RentCarsEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brands" EntityType="Self.Brands" />
+    <EntitySet Name="CarModels" EntityType="Self.CarModels" />
+    <EntitySet Name="Cars" EntityType="Self.Cars" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" />
+    <EntitySet Name="FuelType" EntityType="Self.FuelType" />
+    <EntitySet Name="Transmission1" EntityType="Self.Transmission1" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_CarModels_Brands" Association="Self.FK_CarModels_Brands">
+      <End Role="Brands" EntitySet="Brands" />
+      <End Role="CarModels" EntitySet="CarModels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_Brands" Association="Self.FK_Cars_Brands">
+      <End Role="Brands" EntitySet="Brands" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_CarModels" Association="Self.FK_Cars_CarModels">
+      <End Role="CarModels" EntitySet="CarModels" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_FuelType" Association="Self.FK_Cars_FuelType">
+      <End Role="FuelType" EntitySet="FuelType" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_Transmission" Association="Self.FK_Cars_Transmission">
+      <End Role="Transmission1" EntitySet="Transmission1" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <EntitySet Name="Rents" EntityType="RentCarsModel.Rents" />
+    <AssociationSet Name="FK_Rents_Cars" Association="RentCarsModel.FK_Rents_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rents_Customers" Association="RentCarsModel.FK_Rents_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rents_Users" Association="RentCarsModel.FK_Rents_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Rents">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsersID" Type="Int32" />
+    <Property Name="CustomersID" Type="Int32" />
+    <Property Name="CarID" Type="Int32" />
+    <Property Name="HandOverDate" Type="DateTime" Precision="3" />
+    <Property Name="TakeOverDate" Type="DateTime" Precision="3" />
+    <Property Name="DelayDate" Type="DateTime" Precision="3" />
+    <Property Name="DelayedFine" Type="Int32" />
+    <Property Name="DailyPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Addeddate" Type="DateTime" Precision="3" />
+    <Property Name="TotalPrice" Type="Int32" />
+    <NavigationProperty Name="Cars" Relationship="RentCarsModel.FK_Rents_Cars" FromRole="Rents" ToRole="Cars" />
+    <NavigationProperty Name="Customers" Relationship="RentCarsModel.FK_Rents_Customers" FromRole="Rents" ToRole="Customers" />
+    <NavigationProperty Name="Users" Relationship="RentCarsModel.FK_Rents_Users" FromRole="Rents" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK_Rents_Cars">
+    <End Type="RentCarsModel.Cars" Role="Cars" Multiplicity="0..1" />
+    <End Type="RentCarsModel.Rents" Role="Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rents_Customers">
+    <End Type="RentCarsModel.Customers" Role="Customers" Multiplicity="0..1" />
+    <End Type="RentCarsModel.Rents" Role="Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="CustomersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rents_Users">
+    <End Type="RentCarsModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="RentCarsModel.Rents" Role="Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="UsersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
