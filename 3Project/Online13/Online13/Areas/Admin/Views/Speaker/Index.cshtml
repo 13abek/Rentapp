@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Online13.Models.Speaker>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.FullName)*@
+            Full Name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PositionId)*@
+            Position
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            <img src="~/Uploads/@item.Image" alt="Alternate Text" width="100" />
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Position.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Update", new { id=item.Id }) |
+            <a href="@Url.Action("Delete","Speaker",new { id=item.Id})" onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
