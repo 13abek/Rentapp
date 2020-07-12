@@ -1,0 +1,155 @@
+﻿@model Online13.ViewModels.VmEvent
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Banner Area Start -->
+<div class="banner-area-wrapper">
+    <div class="banner-area text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="banner-content-wrapper">
+                        <div class="banner-content">
+                            <h2>event / right side bar</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Area End -->
+<!-- Blog Start -->
+<div class="blog-area event-area three text-center pt-150 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    @foreach (var item in Model.events)
+                    {
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="single-event mb-60">
+                                <div class="event-img">
+                                    <a href="@Url.Action("EventDetails","Event",new { id=item.EventCategoryId})">
+                                        <img src="~/Uploads/@item.Image" alt="event">
+                                        <div class="course-hover">
+                                            <i class="fa fa-link"></i>
+                                        </div>
+                                    </a>
+                                    <div class="event-date">
+                                        <h3>@item.AddedDate.ToString("dd") <span>@item.AddedDate.ToString("MM")</span></h3>
+                                    </div>
+                                </div>
+                                <div class="event-content text-left">
+                                    <h4><a href="@Url.Action("EventDetails","Event",new { id=item.EventCategoryId})">ADVANCE PHP WORKSHOP</a></h4>
+                                    <ul>
+                                        <li><span>time:</span> @item.StarsTime AM - @item.EndTime PM</li>
+                                        <li><span>venue</span> @item.Venue</li>
+                                    </ul>
+                                    <div class="event-content-right">
+                                        <a class="default-btn" href="@Url.Action("EventDetails","Event",new {id=item.EventCategoryId })">join now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-sidebar right text-left">
+                    <div class="single-blog-widget mb-50">
+                        <h3>search</h3>
+                        <div class="blog-search">
+                            <form id="search" action="#">
+                                <input type="search" placeholder="Search..." name="search" />
+                                <button type="submit">
+                                    <span><i class="fa fa-search"></i></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="single-blog-widget mb-50">
+                        <h3>categories</h3>
+                        <ul>
+                            <li><a href="#">CSS Engineering (10)</a></li>
+                            <li><a href="#">Political Science (12)</a></li>
+                            <li><a href="#">Micro Biology (08)</a></li>
+                            <li><a href="#">HTML5 &amp; CSS3 (15)</a></li>
+                            <li><a href="#">Web Design (20)</a></li>
+                            <li><a href="#">PHP (23)</a></li>
+                        </ul>
+                    </div>
+                    <div class="single-blog-widget mb-50">
+                        <div class="single-blog-banner">
+                            <a href="@Url.Action("BlogDetails","Blog")" id="blog"><img src="~/Public/img/blog/blog-img.jpg" alt="blog"></a>
+                            <h2>best<br> eductaion<br> theme</h2>
+                        </div>
+                    </div>
+                    <div class="single-blog-widget mb-50">
+                        <h3>latest post</h3>
+                        <div class="single-post mb-30">
+                            <div class="single-post-img">
+                                <a href="@Url.Action("BlogDetails","Blog")">
+                                    <img src="~/Public/img/post/post1.jpg" alt="post">
+                                    <div class="blog-hover">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-post-content">
+                                <h4><a href="@Url.Action("BlogDetails","Blog")">English Language Course for you</a></h4>
+                                <p>By Alex  /  June 20, 2017</p>
+                            </div>
+                        </div>
+                        <div class="single-post mb-30">
+                            <div class="single-post-img">
+                                <a href="@Url.Action("BlogDetails","Blog")">
+                                    <img src="~/Public/img/post/post2.jpg" alt="post">
+                                    <div class="blog-hover">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-post-content">
+                                <h4><a href="@Url.Action("BlogDetails","Blog")">Advance Web Design and Develop</a></h4>
+                                <p>By Alex  /  June 20, 2017</p>
+                            </div>
+                        </div>
+                        <div class="single-post">
+                            <div class="single-post-img">
+                                <a href="@Url.Action("BlogDetails","Blog")">
+                                    <img src="~/Public/img/post/post3.jpg" alt="post">
+                                    <div class="blog-hover">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-post-content">
+                                <h4><a href="@Url.Action("BlogDetails","Blog")">English Language Course for you</a></h4>
+                                <p>By Alex  /  June 20, 2017</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-blog-widget">
+                        <h3>tags</h3>
+                        <div class="single-tag">
+                            <a href="@Url.Action("BlogDetails","Blog")" class="mr-10 mb-10">course</a>
+                            <a href="@Url.Action("BlogDetails","Blog")" class="mr-10 mb-10">education</a>
+                            <a href="@Url.Action("BlogDetails","Blog")" class="mb-10">teachers</a>
+                            <a href="@Url.Action("BlogDetails","Blog")" class="mr-10">learning</a>
+                            <a href="@Url.Action("BlogDetails","Blog")" class="mr-10">university</a>
+                            <a href="@Url.Action("BlogDetails","Blog")">events</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+<!-- Subscribe Start -->
+@{
+    Html.RenderPartial("~/Views/Shared/_SubscribePartial.cshtml");
+}
+<!-- Subscribe End -->
